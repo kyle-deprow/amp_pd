@@ -4,6 +4,8 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 
+import pandas as pd
+
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
@@ -15,6 +17,12 @@ def main(input_filepath, output_filepath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
+def load_data(base_path = "data"):
+    proteins = pd.read_csv(f"{base_path}/train_proteins.csv")
+    peptides = pd.read_csv(f"{base_path}/train_peptides.csv")
+    clinical = pd.read_csv(f"{base_path}/train_clinical_data.csv")
+    supplement = pd.read_csv(f"{base_path}/supplemental_clinical_data.csv")
+    return proteins, peptides, clinical, supplement
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
