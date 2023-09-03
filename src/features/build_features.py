@@ -2,22 +2,12 @@
 import numpy as np
 import pandas as pd
 
-def smape1p_ind(A, F):
-    val = 200 * np.abs(F - A) / (np.abs(A+1) + np.abs(F+1))
-    return val
-
-def smape1p(A, F):
-    return smape1p_ind(A, F).mean()
-
-def max_dif(val, lst):
-    lst0 = [x for x in lst if x < val]
-    if len(lst0) == 0:
-        return -1
-    return val - max(lst0)
-
-def count_prev_visits(val, lst):
-    lst0 = [x for x in lst if x < val]
-    return len(lst0)
+from amp_pd.utils.util import (
+    smape1p_ind,
+    smape1p,
+    max_dif,
+    count_prev_visits
+)
 
 class DataPrep:
     def __init__(self, target_horizons=[0, 6, 12, 24], test_vmonths = [0, 6, 12, 18, 24, 36, 48, 60, 72, 84]):
